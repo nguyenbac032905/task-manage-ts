@@ -9,11 +9,8 @@ database.connect();
 const app: Express = express();
 const port: number | string = process.env.PORT || 3000;
 
-import Task from "./models/task.model";
-app.get("/tasks", async (req: Request,res: Response) => {
-    const tasks = await Task.find({deleted: false});
-    res.json(tasks);
-})
+import routes from "./routes/index.route";
+routes(app);
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 })
