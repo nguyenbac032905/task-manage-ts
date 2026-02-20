@@ -1,9 +1,8 @@
-import Express from "express";
-const router = Express.Router();
+import {Router} from "express";
+const router: Router = Router();
+import * as controller from "../controllers/task.controller";
 
-import {index,detail} from "../controllers/task.controller";
-
-router.get("/", index);
-router.get("/detail/:id",detail)
+router.get("/", controller.index);
+router.get("/detail/:id",controller.detail);
 
 export default router;
