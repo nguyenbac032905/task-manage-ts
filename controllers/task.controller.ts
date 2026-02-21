@@ -89,12 +89,56 @@ export const changeMulti = async (req: Request, res: Response): Promise<void> =>
                 message: "thanh cong"
             })
             break;
-    
+        case ChangeKey.DELETE:
+            await Task.updateMany({_id: {$in: ids}}, {$set: {deleted: true, deletedAt: new Date()}});
+            res.json({
+                code: 200,
+                message: "thanh cong"
+            })
+            break;
         default:
             res.json({
                 code: 400,
                 message: "that bai"
             })
             break;
+    }
+}
+export const create = async (req: Request, res: Response): Promise<void> => {
+    try{
+        const task = new Task(req.body);
+        await task.save();
+        res.json({
+            code: 200,
+            message: "thanh cong"
+        })
+    }catch(error){
+        res.json({
+            code: 400,
+            message: "that bai"
+        })
+    }
+}
+export const edit = async (req: Request, res: Response): Promise<void> => {
+    const id = req.params.id as string;
+    await Task.updateOne({_id: id}, {$set: req.body});
+    res.json({
+        code: 200,
+        message: "thanh cong"
+    })
+}
+export const deleteTask = async (req: Request, res: Response): Promise<void> => {
+    try{
+        const id = req.params.id as string;
+        await Task.updateOne({_id: id}, {$set: {deleted: true,deletedAt: new Date()}});
+        res.json({
+            code: 200,
+            message: "thanh cong"
+        })
+    }catch(error){
+        res.json({
+            code: 400,
+            message: "that bai"
+        })
     }
 }
