@@ -3,6 +3,7 @@
     "target": "ES6",
     "module": "CommonJS",
     "removeComments": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "outDir": "dist"
   }
 }
